@@ -1,0 +1,22 @@
+{
+  "name": "training/bothelp",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Dmitriy Korablinov",
+      "email": "dkorablinov@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.2",
+    "ext-json": "*",
+    "symfony/console": "^5.0",
+    "php-amqplib/php-amqplib": "^2.11"
+  },
+  "autoload": {
+    "psr-4": {
+      "Bothelp\\": "src/"
+    }
+  }
+}
