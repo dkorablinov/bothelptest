@@ -7,8 +7,6 @@ use Symfony\Component\Console\Application;
 use Bothelp\Generator\GenerateEventsCommand;
 use Bothelp\Handler\HandleEventsCommand;
 
-const HANDLER_AMOUNT = 5;
-
 $config = require_once __DIR__ . '/config/config.php';
 
 $logger = new \Bothelp\Handler\Filesystem\FileLogger(__DIR__.'/logs/result.log');

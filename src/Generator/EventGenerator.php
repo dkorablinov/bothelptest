@@ -43,11 +43,13 @@ final class EventGenerator
     {
         $eventsGenerated = 0;
         while ($eventsGenerated < $limit) {
+            // Choose random client
             $clientId = rand(1, $this->clientAmount);
             if (!isset($this->clientCounters[$clientId])) {
                 $this->clientCounters[$clientId] = 0;
             }
 
+            // Generate events for client
             $eventsGeneratedForClient = $this->generateEventsForClient($clientId);
             $this->clientCounters[$clientId] += $eventsGeneratedForClient;
             $eventsGenerated += $eventsGeneratedForClient;
@@ -63,6 +65,7 @@ final class EventGenerator
     {
         $count = rand(1, 5);
         for ($i = 0; $i < $count; $i++) {
+            // Publish an event to the queue
             $this->eventPublisher->publishEvent(
                 new Event($clientId, $this->clientCounters[$clientId] + $i)
             );

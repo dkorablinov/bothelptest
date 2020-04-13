@@ -75,6 +75,7 @@ final class EventHandler implements \Bothelp\Handler\EventHandler
     {
         $data = json_decode($message->getBody(), true);
 
+        // Perform some time-consuming task
         sleep(1);
 
         $this->logger->logMessage(
@@ -95,6 +96,7 @@ final class EventHandler implements \Bothelp\Handler\EventHandler
      */
     private function declareQueue(int $key): string
     {
+        // Declare a direct exchange and bind a queue
         $exchangeName = self::EXCHANGE_NAME;
         $this->channel->exchange_declare($exchangeName, 'direct', false, true, false);
 

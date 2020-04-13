@@ -53,6 +53,7 @@ final class EventPublisher implements \Bothelp\Generator\EventPublisher
      */
     public function publishEvent(Event $event): void
     {
+        // Calculate routing key as ClientId module amount of handlers
         $routingKey = $event->getClientId() % $this->handlerAmount;
         $this->declareQueue($routingKey);
 
@@ -69,6 +70,7 @@ final class EventPublisher implements \Bothelp\Generator\EventPublisher
      */
     private function declareQueue(int $key): string
     {
+        // Declare a direct exchange and bind a queue
         $exchangeName = self::EXCHANGE_NAME;
         $this->channel->exchange_declare($exchangeName, 'direct', false, true, false);
 
