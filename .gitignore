@@ -1,2 +1,6 @@
 .idea/
 vendor/
+config/*
+!config/*.dist
+logs/*
+!logs/.empty

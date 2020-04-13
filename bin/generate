@@ -1,0 +1,2 @@
+#!/bin/bash
+docker run -it --rm --name bothelp-generate -v "$PWD":/usr/src/bothelp -w /usr/src/bothelp php:7.4-cli php app.php bothelp:generate-events 10000

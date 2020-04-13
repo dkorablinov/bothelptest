@@ -1,0 +1,5 @@
+#!/bin/bash
+for i in {0..4}
+do
+   docker run -d --rm --name bothelp-consume-$i -v "$PWD":/usr/src/bothelp -w /usr/src/bothelp php:7.4-cli php app.php bothelp:handle-events $i
+done

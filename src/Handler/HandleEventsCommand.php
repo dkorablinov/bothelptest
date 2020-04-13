@@ -1,6 +1,6 @@
 <?php
 
-namespace Bothelp\Generator;
+namespace Bothelp\Handler;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -8,32 +8,32 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class GenerateEventsCommand
+ * Class HandleEventsCommand
  */
-final class GenerateEventsCommand extends Command
+final class HandleEventsCommand extends Command
 {
     /**
-     * @var EventGenerator
+     * @var EventHandler
      */
-    private $eventGenerator;
+    private $eventHandler;
 
     // the name of the command (the part after "bin/console")
-    protected static $defaultName = 'bothelp:generate-events';
+    protected static $defaultName = 'bothelp:handle-events';
 
     /**
      * GenerateEventsCommand constructor.
-     * @param EventGenerator $eventGenerator
+     * @param EventHandler $eventHandler
      */
-    public function __construct(EventGenerator $eventGenerator)
+    public function __construct(EventHandler $eventHandler)
     {
-        $this->eventGenerator = $eventGenerator;
+        $this->eventHandler = $eventHandler;
 
         parent::__construct();
     }
 
     protected function configure()
     {
-        $this->addArgument('eventLimit', InputArgument::OPTIONAL, '', 1000);
+        $this->addArgument('key', InputArgument::REQUIRED);
     }
 
     /**
@@ -44,13 +44,14 @@ final class GenerateEventsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $eventLimit = (int) $input->getArgument('eventLimit');
+        $key = (int) $input->getArgument('key');
+
+        $output->writeln("Handler with a key $key started...");
 
         try {
-            $this->eventGenerator->generate($eventLimit);
-            $output->writeln('Done.');
+            $this->eventHandler->handle($key);
         } catch (\Throwable $ex) {
-            $output->writeln('Error: ' . $ex->getMessage());
+            $output->writeln($ex->getMessage());
         }
 
         return 0;

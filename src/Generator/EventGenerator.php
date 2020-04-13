@@ -2,20 +2,22 @@
 
 namespace Bothelp\Generator;
 
-use Bothelp\EventQueue\Event;
-use Bothelp\EventQueue\QueueInterface;
+use Bothelp\Event\Event;
 
 /**
  * Class EventGenerator
  */
 final class EventGenerator
 {
-    private const CLIENT_COUNT = 1000;
+    /**
+     * @var EventPublisher
+     */
+    private $eventPublisher;
 
     /**
-     * @var QueueInterface
+     * @var int
      */
-    private $eventQueue;
+    private $clientAmount;
 
     /**
      * @var array
@@ -24,11 +26,13 @@ final class EventGenerator
 
     /**
      * EventGenerator constructor.
-     * @param QueueInterface $eventQueue
+     * @param EventPublisher $eventPublisher
+     * @param int $clientAmount
      */
-    public function __construct(QueueInterface $eventQueue)
+    public function __construct(EventPublisher $eventPublisher, int $clientAmount)
     {
-        $this->eventQueue = $eventQueue;
+        $this->eventPublisher = $eventPublisher;
+        $this->clientAmount = $clientAmount;
     }
 
     /**
@@ -39,7 +43,7 @@ final class EventGenerator
     {
         $eventsGenerated = 0;
         while ($eventsGenerated < $limit) {
-            $clientId = rand(1, self::CLIENT_COUNT);
+            $clientId = rand(1, $this->clientAmount);
             if (!isset($this->clientCounters[$clientId])) {
                 $this->clientCounters[$clientId] = 0;
             }
@@ -59,7 +63,7 @@ final class EventGenerator
     {
         $count = rand(1, 5);
         for ($i = 0; $i < $count; $i++) {
-            $this->eventQueue->pushEvent(
+            $this->eventPublisher->publishEvent(
                 new Event($clientId, $this->clientCounters[$clientId] + $i)
             );
         }

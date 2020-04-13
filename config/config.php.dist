@@ -1,0 +1,13 @@
+<?php
+
+return [
+    'clientAmount' => 1000,
+    'consumerAmount' => 5,
+
+    'amqp' => [
+      'host' => 'localhost',
+      'port' => '5672',
+      'user' => 'guest',
+      'password' => 'guest',
+    ]
+];

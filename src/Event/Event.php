@@ -1,6 +1,6 @@
 <?php
 
-namespace Bothelp\EventQueue;
+namespace Bothelp\Event;
 
 /**
  * Class Event
